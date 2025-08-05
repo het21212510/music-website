@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spotify Header Clone</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: black;
+      color: white;
+    }
+
+    header {
+      height: 70px;
+      background-color: black;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .left-header,
+    .right-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .left-header img {
+      height: 48px;
+      width: 48px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: #2a2a2a;
+      border-radius: 30px;
+      padding: 5px 15px;
+      color: white;
+    }
+
+    .search-bar input {
+      border: none;
+      outline: none;
+      padding: 8px;
+      font-size: 14px;
+      background-color: transparent;
+      color: white;
+      width: 240px;
+    }
+
+    .search-bar input::placeholder {
+      color: #b3b3b3;
+    }
+
+    .search-bar img {
+      height: 28px;
+      width: 28px;
+    }
+
+    .divider {
+      height: 30px;
+      width: 1px;
+      background-color: grey;
+      margin: 0 10px;
+    }
+
+    .right-header button {
+      background-color: transparent;
+      color: #b3b3b3;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .right-header button:hover {
+      color: white;
+    }
+
+    .login-btn {
+      background-color: white !important;
+      color: black !important;
+      border-radius: 50px;
+      padding: 8px 16px;
+      margin-left: 10px;
+      transition: transform 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .login-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .install-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .install-button img {
+      height: 36px;
+      width: 36px;
+      transition: filter 0.3s;
+      filter: brightness(0.7);
+    }
+
+    .install-button span {
+      color: #b3b3b3;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .install-button:hover img {
+      filter: brightness(5);
+    }
+
+    .install-button:hover span {
+      color: white;
+    }
+
+    .main-content {
+      display: flex;
+      margin-top: 70px;
+    }
+
+    .left-section {
+      width: 280px;
+      background-color: #121212;
+      height: calc(100vh - 70px);
+      position: fixed;
+      top: 70px;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .library-header {
+      display: flex;
+      padding: 20px;
+      background-color: #121212;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      width: 280px;
+      z-index: 2;
+    }
+
+    .library-header img {
+      height: 50px;
+      width: 40px;
+      margin-left: 90px;
+    }
+
+    .scrollable-content {
+      overflow-y: auto;
+      padding: 0 20px;
+      margin-top: 100px;
+      margin-bottom: 180px;
+      flex-grow: 1;
+    }
+
+    .box {
+      background-color: #242424;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .box h4 {
+      margin: 0 0 5px;
+      font-size: 16px;
+    }
+
+    .box p {
+      font-size: 14px;
+      color: #b3b3b3;
+      margin-bottom: 10px;
+    }
+
+    .box button {
+      background-color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .footer-fixed {
+      padding: 20px;
+      background-color: #121212;
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      width: 280px;
+      z-index: 2;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      color: #b3b3b3;
+    }
+
+    .footer-links a {
+      color: #b3b3b3;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .language-btn {
+      margin-top: 10px;
+      border: 1px solid #b3b3b3;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+  
+  .folder-card {
+    background-color: #232323;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 120px;
+    text-align: center;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+  .folder-card h5 {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: #b3b3b3;
+  }
+
+
+    .main-section {
+      margin-left: 280px;
+      padding: 20px;
+      flex: 1;
+      padding-bottom: 200px;
+    }
+
+    .song-row {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+
+    .song-card {
+      background-color: #181818;
+      padding: 10px;
+      border-radius: 10px;
+      min-width: 160px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .song-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .song-card h5 {
+      margin: 8px 0 4px;
+      font-size: 14px;
+    }
+
+    .song-card p {
+      margin: 0;
+      font-size: 12px;
+      color: #b3b3b3;
+    }
+
+    #audioPlayer {
+      display: none;
+      margin-top: 30px;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+
+    .preview-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(90deg, #af2896, #509bf5);
+      color: white;
+      padding: 20px 30px;
+      border-top-left-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .preview-banner h4 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .preview-banner p {
+      margin: 5px 0 0;
+      font-size: 14px;
+    }
+
+    .preview-banner .banner-content {
+      max-width: 70%;
+    }
+
+    .preview-banner button {
+      background-color: white;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 24px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .preview-banner button:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .right-header {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .login-btn {
+        margin-top: 5px;
+      }
+
+      .main-section {
+        margin-left: 0;
+      }
+
+      .left-section {
+        display: none;
+      }
+
+      .preview-banner {
+        left: 0;
+        right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="left-header">
+    <img src="logo.jpg.png" alt="Logo" />
+    <img src="home.jpg.png" alt="Home" />
+    <div class="search-bar">
+      <img src="search.jpg.png" alt="Search Icon" />
+      <input type="text" id="searchInput" placeholder="What do you want to play?" />
+      <div class="divider"></div>
+      <img src="searchfolder.jpg.png" alt="Folder" />
+    </div>
+  </div>
+
+  <div class="right-header">
+    <button>Premium</button>
+    <button>Support</button>
+    <button>Download</button>
+    <div class="divider"></div>
+    <div class="install-button" id="installApp">
+      <img src="download.jpg.png" alt="Install Icon" />
+      <span>Install App</span>
+    </div>
+    <button id="signUpBtn">Sign up</button>
+    <button class="login-btn" id="loginBtn">Log in</button>
+  </div>
+</header>
+
+<div class="main-content">
+  <div class="left-section">
+    <div class="library-header">
+      <h3>Your Library</h3>
+      <img src="add.jpg.png">
+    </div>
+
+    <div class="scrollable-content">
+      <div class="box">
+        <h4>Create your first playlist</h4>
+        <p>It’s easy, we’ll help you</p>
+        <button>Create playlist</button>
+      </div>
+
+      <div class="box">
+        <h4>Let’s find some podcasts to follow</h4>
+        <p>we'll keep you updated on new episodes</p>
+        <button>Browse podcasts</button>
+      </div>
+    </div>
+
+    <div class="footer-fixed">
+      <div class="footer-links">
+        <a href="#">Legal</a>
+        <a href="#">Safety & Privacy Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookies</a>
+        <a href="#">About Ads</a>
+        <a href="#">Accessibility</a>
+        <a href="#" style="font-weight:bold;">Cookies</a>
+      </div>
+      <div class="language-btn">
+        🌐 English
+      </div>
+    </div>
+  </div>
+
+  <!-- ...existing code... -->
+<div class="main-section">
+  <h2>Trending Songs</h2>
+  
+  <!-- 4 Folders before songs -->
+  <div class="song-row">
+    <div class="folder-card" id="folder1-btn">
+      <img src="folder1.JPG" alt="HET" style="width:60px; height:60px; border-radius:10px;">
+      <h5>HET</h5>
+    </div>
+    <div class="folder-card" id="folder2-btn">
+      <img src="folder2.jpg" alt="DHRUV" style="width:60px; height:60px; border-radius:10px;">
+      <h5>DHRUV</h5>
+    </div>
+    <div class="folder-card" id="folder3-btn">
+      <img src="folder3.jpg" alt="SHAURYA" style="width:60px; height:60px; border-radius:10px;">
+      <h5>SHAURYA</h5>
+    </div>
+    <div class="folder-card" id="folder4-btn">
+      <img src="folder4.jpg" alt="KHUSH" style="width:60px; height:60px; border-radius:10px;">
+      <h5>KHUSH</h5>
+    </div>
+  </div>
+
+  <!-- Folder 1 Songs List (hidden by default) -->
+  <div class="song-row" id="folder1-songs" style="display:none;">
+    <div class="song-card" data-title="Ishq Hai" data-artist="Anurag Saikia" data-src="ishqhai.mp3">
+      <img src="ishq hai.jpg.png" alt="Song 1">
+      <h5>Ishq Hai</h5>
+      <p>Anurag Saikia</p>
+    </div>
+    <div class="song-card" data-title="finding her" data-artist="kushagra,bharath saaheal" data-src="finding her.mp3">
+      <img src="findingher.jpg" alt="Song 2">
+      <h5>finding her</h5>
+      <p>kushagra,bharath saaheal</p>
+    </div>
+    <div class="song-card" data-title="barbadiya" data-artist="" data-src="barbadiya.mp3">
+      <img src="barbadiya.jpg" alt="Song 3">
+      <h5>barbadiya</h5>
+      <p></p>
+    </div>
+    <div class="song-card" data-title="ranjaanah" data-artist="kushagra,bharath saaheal" data-src="rahnjanaah.mp3">
+      <img src="rahnjanaah.jpg" alt="Song 4">
+      <h5>ranjaanah</h5>
+      <p>kushagra,bharath saaheal</p>
+    </div>
+    <div class="song-card" data-title="sapphire" data-artist="kushagra,bharath saaheal" data-src="sapphire.mp3">
+      <img src="sapphire.jpg" alt="Song 5">
+      <h5>sapphire</h5>
+      <p>kushagra,bharath saaheal</p>
+    </div>
+  </div>
+
+  <!-- ...audio player code... -->
+  <div id="audioPlayer" style="display:none; margin-top:30px;">
+    <h3 id="nowPlayingTitle">Now Playing:</h3>
+    <p id="nowPlayingArtist"></p>
+    <audio id="mainAudio" controls>
+      <source id="audioSource" src="" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
+
+<div class="preview-banner">
+  <div class="banner-content">
+    <h4>Preview of Spotify</h4>
+    <p>Sign up to get unlimited songs and podcasts with occasional ads. No credit card needed.</p>
+  </div>
+  <button onclick="alert('Redirecting to sign-up for free...')">Sign up for free</button>
+</div>
+
+<script>
+  document.getElementById("searchInput").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      alert("Searching for: " + this.value);
+    }
+  });
+
+  document.getElementById("installApp").addEventListener("click", function () {
+    alert("Installing the app...");
+  });
+
+  document.getElementById("signUpBtn").addEventListener("click", function () {
+    alert("Redirecting to Sign Up...");
+  });
+
+  document.getElementById("loginBtn").addEventListener("click", function () {
+    alert("Logging in...");
+  });
+
+  // Song play logic for all songs
+  document.querySelectorAll('.song-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var title = card.getAttribute('data-title');
+      var artist = card.getAttribute('data-artist');
+      var src = card.getAttribute('data-src');
+      document.getElementById('nowPlayingTitle').textContent = "Now Playing: " + title;
+      document.getElementById('nowPlayingArtist').textContent = artist;
+      document.getElementById('audioSource').src = src;
+      var audio = document.getElementById('mainAudio');
+      audio.load();
+      document.getElementById('audioPlayer').style.display = "block";
+      audio.play();
+    });
+  });
+
+  document.getElementById('folder1-btn').addEventListener('click', function() {
+    document.getElementById('folder1-songs').style.display = 
+      document.getElementById('folder1-songs').style.display === 'none' ? 'flex' : 'none';
+  });
+
+  // Song play logic for all songs
+  document.querySelectorAll('.song-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var title = card.getAttribute('data-title');
+      var artist = card.getAttribute('data-artist');
+      var src = card.getAttribute('data-src');
+      document.getElementById('nowPlayingTitle').textContent = "Now Playing: " + title;
+      document.getElementById('nowPlayingArtist').textContent = artist;
+      document.getElementById('audioSource').src = src;
+      var audio = document.getElementById('mainAudio');
+      audio.load();
+      document.getElementById('audioPlayer').style.display = "block";
+      audio.play();
+    });
+  });
+
+   document.getElementById("searchInput").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      var query = this.value.trim().toLowerCase();
+      var songRow = document.getElementById('folder1-songs');
+      var songs = songRow.querySelectorAll('.song-card');
+      var found = false;
+
+      // Show folder1-songs if hidden
+      songRow.style.display = 'flex';
+
+      songs.forEach(function(card) {
+        var title = card.getAttribute('data-title').toLowerCase();
+        var artist = card.getAttribute('data-artist').toLowerCase();
+        if (title.includes(query) || artist.includes(query)) {
+          card.style.display = 'block';
+          found = true;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (!found) {
+        alert("No song found for: " + this.value);
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
